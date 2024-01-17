@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <!-- Font Awesome Kütüphanesi için bağlantı -->
+    <link href='https://fonts.googleapis.com/css?family=Creepster' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Rubik's EcoGuardian</title>
+  </head>
+  <body>
+  <div id="sidebar" style="display: none;">
+      <button id="translateButton" class="transform-button" style="margin-top: 200px;">T</button>
+      <button id="rotateButton" class="transform-button">R</button>
+      <button id="scaleButton" class="transform-button">S</button>
+  </div>
+
+  <div id="infoDiv" style="display: none;">
+    <p>Selected object: <span id="objectName"></span></p>
+    <p>Position: <span id="positionX"></span>, <span id="positionY"></span>, <span id="positionZ"></span></p>
+    <p>Orientation: <span id="orientationX"></span>, <span id="orientationY"></span>, <span id="orientationZ"></span></p>
+    <p>Scale: <span id="scaleX"></span>, <span id="scaleY"></span>, <span id="scaleZ"></span></p>
+    <p>Chosen Mode of Transform: <span id="transformationMode"></span> on <span id="axis" style="font-weight: bold;"></span> axis</p>
+</div>  
+
+  <div id="distanceDisplay" style="display:none">Closest evil cube - ID: ... Distance: ... meters</div>
+
+  <div id="evilCubeCountDisplay" style="display:none">Alive Evil Cube Count: ...</div>
+
+  <div id="leverMessage" style="display: none; position: absolute; bottom: 10px; width: 100%; text-align: center; color: white; font-size: 20px;">
+    Press 'P' to activate/deactivate the Evil Cube detector spotlights.
+  </div>
+
+  <button id="howToPlayButton">How To Play?</button>
+
+  <button id="generalMainMenuButton" onclick="window.location.reload();">Main Menu</button>
+
+  <div id="howToPlayPopup" class="popup">
+    <h2>How To Play?</h2>
+    <div class="tabs">
+      <button id="infoTab" class="tab">Info</button>
+      <button id="controlsTab" class="tab">Controls</button>
+    </div>
+    <div id="infoContent" class="content">.</div>
+    <div id="controlsContent" class="content" style="display: none;"></div>
+    <button id="closePopup">Resume</button>
+  </div>
+
+  <div id="gameOverDiv" style="display: none;">
+      <h1 id="gameOverTitle">GAME OVER</h1>
+      <p id="gameOverMessage"></p>
+      <div id="gameStats">
+          <p id="pollutionLevelStat"></p>
+          <p id="timeTakenStat"></p>
+      </div>
+      <button id="mainMenuButton" onclick="window.location.reload();">Main Menu</button>
+  </div>
+
+  <div id="pollutionBarContainer" style="display: none">
+      <span id="pollutionLabel">Pollution Level</span>
+      <div id="pollutionBar"></div>
+  </div>
+
+  <div id="boostBarContainer">
+    <span id="boostIcon">⚡ Boost</span>
+    <div id="boostBar"></div>
+  </div>
+
+  <div id="difficulty-bar">
+
+  </div>
+
+  
+  <div id="flashlightBatteryContainer" style="display: none">
+    <span id="flashlightIcon">🔦 Flashlight Battery</span>
+    <div id="flashlightBatteryBar"></div>
+  </div>
+
+
+  <div id="loadingScreen" >
+    <label for="progress-bar">Loading...</label>
+    <progress id="progress-bar" value="0" max="100"></progress>
+  </div>
+
+  <div id="timer" class="not-selectable"></div>
+
+
+  <div id="pauseDiv" >
+
+    <h1 id="pause" class="menu-message">Paused</h1>
+
+  </div>
+
+
+
+  <div id="leaderboard" class="leaderboard" style="display: none">
+    <h1>LEADERBOARD</h1>
+    <ol id="scoreList">
+      <!-- Skorlar burada listelenecek -->
+    </ol>
+
+    <button id="restart">Main Menu</button>
+  </div>
+
+
+  <div id="mainMenu" class="menu-screen">
+
+    <h1 id="title" class="menu-message">Rubik's EcoGuardian</h1>
+
+   
+      <button id="playButton" class="menu-button not-selectable"><b>Play</b></button>
+    <button id="optionsButton" class="menu-button not-selectable"><b>Game Modes</b></button>
+    <button id="quitButton" class="menu-button not-selectable"><b>Quit</b></button>
+    <!-- Options Menüsü -->
+    <div id="optionsMenu" class="options-menu not-selectable" style="display:none;">
+      <h4 class="menu-message not-selectable">Choose Game Mode</h4>
+      <button class="difficulty-button not-selectable" data-difficulty="race_against_time">Race Against Time</button>
+      <button class="difficulty-button not-selectable" data-difficulty="find_and_destroy">Find and Destroy!</button>
+      <button class="difficulty-button not-selectable" data-difficulty="night_falls">Night Falls</button>
+      <button class="difficulty-button not-selectable" data-difficulty="free_roam">Free Roam</button>
+      <button id="backButton" class="menu-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0l3.147 3.146H14.5a.5.5 0 0 1 .5.5z"/>
+        </svg>
+
+
+        Back</button>
+
+    </div>
+  
+
+
+
+
+  </div>
+    <canvas id="game-surface" >
+
+      
+    </canvas>
+    <canvas id="draw-smoke-surface"></canvas>
+    <canvas id="smoke-surface"></canvas>
+  </body>
+</html>
